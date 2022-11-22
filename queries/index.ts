@@ -4,6 +4,9 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 const QUERY_KEY_TASKS = 'tasks'
 const QUERY_KEY_DONE_TASKS = 'done_tasks'
+const QUERY_KEY_TRASH_TASKS = 'trash_tasks'
+
+/** ---------TODO TASK HOOKS --------- */
 
 export function useGetTasks() {
   const getTasks = async () => {
@@ -38,6 +41,8 @@ export function useUpdateTask({ id }: { id: Task['id'] }) {
   })
 }
 
+/** ---------DONE TASK HOOKS --------- */
+
 export function useGetDoneTasks() {
   const getDoneTasks = async () => {
     const { data } = await axios.get<Task[]>(`/api/tasks/done`)
@@ -65,6 +70,27 @@ export function useDeleteTask({
       } else {
         queryClient.invalidateQueries([QUERY_KEY_TASKS])
       }
+      queryClient.invalidateQueries([QUERY_KEY_TRASH_TASKS])
     }
+  })
+}
+
+/** ---------TRASH TASK HOOKS --------- */
+export function useGetTrashTasks() {
+  const getTrashTasks = async () => {
+    const { data } = await axios.get<Task[]>(`/api/trash`)
+    return data
+  }
+  return useQuery([QUERY_KEY_TRASH_TASKS, 'incomplete'], getTrashTasks)
+}
+
+export function useEmptyTrash() {
+  const queryClient = useQueryClient()
+  const emptyTrash = async () => {
+    const { data } = await axios.delete<Task>(`/api/trash`)
+    return data
+  }
+  return useMutation(emptyTrash, {
+    onSuccess: () => queryClient.invalidateQueries([QUERY_KEY_TRASH_TASKS])
   })
 }

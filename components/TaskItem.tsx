@@ -62,7 +62,7 @@ const TrashButton = styled.button`
   }
 `
 
-const TaskItem: React.FC<Task> = ({ id, isDone, text }) => {
+const TaskItem: React.FC<Task> = ({ id, isDone, isTrash, text }) => {
   const { mutateAsync: updateTask } = useUpdateTask({ id })
   const { mutateAsync: deleteTask } = useDeleteTask({ id, isDone })
 
@@ -70,15 +70,17 @@ const TaskItem: React.FC<Task> = ({ id, isDone, text }) => {
     <Card>
       <DoneButton
         isDone={!!isDone}
-        disabled={!!isDone}
+        disabled={!!isDone || !!isTrash}
         onClick={() => updateTask({ isDone: true })}
       >
         <MdCheck />
       </DoneButton>
       <Text>{text}</Text>
-      <TrashButton onClick={() => deleteTask()}>
-        <IoMdTrash />
-      </TrashButton>
+      {!isTrash && (
+        <TrashButton onClick={() => deleteTask()}>
+          <IoMdTrash />
+        </TrashButton>
+      )}
     </Card>
   )
 }
