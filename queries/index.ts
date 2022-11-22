@@ -45,3 +45,26 @@ export function useGetDoneTasks() {
   }
   return useQuery([QUERY_KEY_DONE_TASKS, 'incomplete'], getDoneTasks)
 }
+
+export function useDeleteTask({
+  id,
+  isDone
+}: {
+  id: Task['id']
+  isDone: Task['isDone']
+}) {
+  const queryClient = useQueryClient()
+  const deleteTask = async () => {
+    const { data } = await axios.delete<Task>(`/api/tasks/${id}`)
+    return data
+  }
+  return useMutation(deleteTask, {
+    onSuccess: () => {
+      if (isDone) {
+        queryClient.invalidateQueries([QUERY_KEY_DONE_TASKS])
+      } else {
+        queryClient.invalidateQueries([QUERY_KEY_TASKS])
+      }
+    }
+  })
+}

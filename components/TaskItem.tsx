@@ -1,12 +1,13 @@
 import { Task } from '@prisma/client'
-import { useUpdateTask } from 'queries'
+import { useDeleteTask, useUpdateTask } from 'queries'
 import { MdCheck } from 'react-icons/md'
+import { IoMdTrash } from 'react-icons/io'
 import styled from 'styled-components'
 
 const Card = styled.div`
   display: grid;
   font-size: x-large;
-  grid-template-columns: min-content auto;
+  grid-template-columns: min-content auto min-content;
   gap: 0.75rem;
   align-items: center;
 `
@@ -48,8 +49,22 @@ const DoneButton = styled.button<{ isDone: boolean }>`
   }
 `
 
+const TrashButton = styled.button`
+  background: transparent;
+  border: none;
+  aspect-ratio: 1 / 1;
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+
+  svg {
+    fill: var(--color-black-300);
+  }
+`
+
 const TaskItem: React.FC<Task> = ({ id, isDone, text }) => {
   const { mutateAsync: updateTask } = useUpdateTask({ id })
+  const { mutateAsync: deleteTask } = useDeleteTask({ id, isDone })
 
   return (
     <Card>
@@ -61,6 +76,9 @@ const TaskItem: React.FC<Task> = ({ id, isDone, text }) => {
         <MdCheck />
       </DoneButton>
       <Text>{text}</Text>
+      <TrashButton onClick={() => deleteTask()}>
+        <IoMdTrash />
+      </TrashButton>
     </Card>
   )
 }
