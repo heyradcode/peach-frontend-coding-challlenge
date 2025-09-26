@@ -1,6 +1,6 @@
 import { Prisma, Task } from '@prisma/client'
 import axios from 'axios'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 const QUERY_KEY_TASKS = 'tasks'
 const QUERY_KEY_DONE_TASKS = 'done_tasks'
@@ -13,7 +13,12 @@ export function useGetTasks() {
     const { data } = await axios.get<Task[]>(`/api/tasks`)
     return data
   }
-  return useQuery([QUERY_KEY_TASKS, 'incomplete'], getTasks)
+  return useQuery({
+    queryKey: [QUERY_KEY_TASKS, 'incomplete'],
+    queryFn: getTasks,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false
+  })
 }
 
 export function useCreateTask() {
@@ -22,8 +27,9 @@ export function useCreateTask() {
     const { data } = await axios.post<Task>(`/api/tasks`, newTask)
     return data
   }
-  return useMutation(createTask, {
-    onSuccess: () => queryClient.invalidateQueries([QUERY_KEY_TASKS])
+  return useMutation({
+    mutationFn: createTask,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TASKS] })
   })
 }
 
@@ -33,10 +39,11 @@ export function useUpdateTask({ id }: { id: Task['id'] }) {
     const { data } = await axios.put<Task>(`/api/tasks/${id}`, newTask)
     return data
   }
-  return useMutation(updateTask, {
+  return useMutation({
+    mutationFn: updateTask,
     onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEY_TASKS])
-      queryClient.invalidateQueries([QUERY_KEY_DONE_TASKS])
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TASKS] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_DONE_TASKS] })
     }
   })
 }
@@ -48,7 +55,12 @@ export function useGetDoneTasks() {
     const { data } = await axios.get<Task[]>(`/api/tasks/done`)
     return data
   }
-  return useQuery([QUERY_KEY_DONE_TASKS, 'incomplete'], getDoneTasks)
+  return useQuery({
+    queryKey: [QUERY_KEY_DONE_TASKS, 'incomplete'],
+    queryFn: getDoneTasks,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false
+  })
 }
 
 export function useDeleteTask({
@@ -63,14 +75,15 @@ export function useDeleteTask({
     const { data } = await axios.delete<Task>(`/api/tasks/${id}`)
     return data
   }
-  return useMutation(deleteTask, {
+  return useMutation({
+    mutationFn: deleteTask,
     onSuccess: () => {
       if (isDone) {
-        queryClient.invalidateQueries([QUERY_KEY_DONE_TASKS])
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY_DONE_TASKS] })
       } else {
-        queryClient.invalidateQueries([QUERY_KEY_TASKS])
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TASKS] })
       }
-      queryClient.invalidateQueries([QUERY_KEY_TRASH_TASKS])
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TRASH_TASKS] })
     }
   })
 }
@@ -81,7 +94,12 @@ export function useGetTrashTasks() {
     const { data } = await axios.get<Task[]>(`/api/trash`)
     return data
   }
-  return useQuery([QUERY_KEY_TRASH_TASKS, 'incomplete'], getTrashTasks)
+  return useQuery({
+    queryKey: [QUERY_KEY_TRASH_TASKS, 'incomplete'],
+    queryFn: getTrashTasks,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false
+  })
 }
 
 export function useEmptyTrash() {
@@ -90,7 +108,8 @@ export function useEmptyTrash() {
     const { data } = await axios.delete<Task>(`/api/trash`)
     return data
   }
-  return useMutation(emptyTrash, {
-    onSuccess: () => queryClient.invalidateQueries([QUERY_KEY_TRASH_TASKS])
+  return useMutation({
+    mutationFn: emptyTrash,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY_TRASH_TASKS] })
   })
 }

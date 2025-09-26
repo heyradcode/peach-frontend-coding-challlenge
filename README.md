@@ -1,87 +1,251 @@
-# frontend-challenge
+# PeachyTask - Modern Task Management App
 
-Welcome to the coding challenge for frontend candidates at Peach Finance! You will find your prompt below, followed by instructions to get you up and running.
+A modern, responsive task management application built with Next.js 14, TypeScript, and TanStack Query. This project has been significantly improved with modern development practices, better performance, and enhanced user experience.
 
-## Table of contents
+## ✨ Features
 
-- [Prompt](#prompt)
-- [Rules](#rules)
-- [Getting started](#getting-started)
+- ✅ **Task Management**: Create, complete, and delete tasks
+- 🗑️ **Trash System**: Move tasks to trash and restore them
+- 📱 **Responsive Design**: Works perfectly on all devices
+- ⚡ **Real-time Updates**: Instant UI updates without page refresh
+- 🎨 **Modern UI**: Beautiful, accessible interface with smooth animations
+- 🛡️ **Error Handling**: Comprehensive error boundaries and loading states
+- 🧪 **Testing**: Full test coverage with Jest and React Testing Library
+- 🔧 **Developer Experience**: ESLint, Prettier, Husky, and TypeScript
 
-## Prompt
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js v18.0.0 or later
+- [Yarn](https://yarnpkg.com/) (recommended) or npm
+
+### Installation
+
+1. **Clone and install dependencies:**
+   ```bash
+   yarn setup
+   # or
+   npm run setup
+   ```
+
+2. **Start the development server:**
+   ```bash
+   yarn dev
+   # or
+   npm run dev
+   ```
+
+3. **Open your browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🛠️ Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `yarn dev` | Start development server |
+| `yarn build` | Build for production |
+| `yarn start` | Start production server |
+| `yarn lint` | Run ESLint |
+| `yarn lint:fix` | Fix ESLint errors |
+| `yarn type-check` | Run TypeScript type checking |
+| `yarn format` | Format code with Prettier |
+| `yarn test` | Run tests |
+| `yarn test:watch` | Run tests in watch mode |
+| `yarn test:coverage` | Run tests with coverage |
+
+## 🏗️ Architecture Improvements
+
+### Technology Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript 5.3+ with strict configuration
+- **Styling**: Styled Components 6+ with CSS custom properties
+- **State Management**: TanStack Query v5 (formerly React Query)
+- **Database**: Prisma 5+ with SQLite
+- **Testing**: Jest + React Testing Library
+- **Code Quality**: ESLint + Prettier + Husky
+
+### Key Improvements
+
+#### 🎯 **Performance Optimizations**
+- TanStack Query with intelligent caching and background updates
+- Optimized bundle size with Next.js 14 features
+- Lazy loading and code splitting
+- Image optimization with WebP/AVIF support
+
+#### 🎨 **Modern UI/UX**
+- CSS custom properties for consistent theming
+- Responsive design with mobile-first approach
+- Smooth animations and micro-interactions
+- Accessibility improvements (ARIA labels, keyboard navigation)
+- Dark mode support (via CSS custom properties)
+
+#### 🛡️ **Error Handling & Resilience**
+- Error boundaries for graceful error recovery
+- Loading states for better user feedback
+- Retry mechanisms for failed requests
+- Comprehensive error logging
+
+#### 🧪 **Testing & Quality**
+- Unit tests for all components
+- Integration tests for user flows
+- Type safety with strict TypeScript
+- Automated code formatting and linting
+- Pre-commit hooks for quality assurance
+
+#### 🔧 **Developer Experience**
+- Modern development tools and configurations
+- Hot reloading and fast refresh
+- TypeScript path mapping for clean imports
+- Comprehensive documentation
+
+## 📁 Project Structure
+
+```
+peach-frontend-coding-challlenge/
+├── components/           # Reusable UI components
+│   ├── CreateTask.tsx   # Task creation form
+│   ├── ErrorBoundary.tsx # Error handling component
+│   ├── Layout.tsx       # Main layout wrapper
+│   ├── Loading.tsx      # Loading states
+│   ├── NoTasks.tsx      # Empty state component
+│   ├── TaskItem.tsx     # Individual task component
+│   ├── TrashMenu.tsx    # Trash navigation
+│   └── TrashModal.tsx   # Trash management modal
+├── pages/               # Next.js pages
+│   ├── api/            # API routes
+│   ├── _app.tsx        # App wrapper with providers
+│   └── index.tsx       # Main page
+├── queries/             # TanStack Query hooks
+│   └── index.ts        # Data fetching logic
+├── types/              # TypeScript type definitions
+│   └── index.ts        # Shared types
+├── styles/             # Global styles
+│   └── globals.css     # CSS custom properties
+├── __tests__/          # Test files
+└── prisma/             # Database schema and migrations
+```
+
+## 🎨 Design System
+
+The app uses a comprehensive design system with CSS custom properties:
+
+### Colors
+- **Brand**: `#f4845f` (Peach)
+- **Secondary**: `#414288` (Purple)
+- **Success**: `#abff4f` (Green)
+- **Danger**: `#6e0e0a` (Red)
+- **Neutral**: Various grays for text and backgrounds
+
+### Spacing Scale
+- `--space-xs`: 0.25rem (4px)
+- `--space-sm`: 0.5rem (8px)
+- `--space-md`: 1rem (16px)
+- `--space-lg`: 1.5rem (24px)
+- `--space-xl`: 2rem (32px)
+- `--space-2xl`: 3rem (48px)
+
+### Typography
+- Responsive font sizes with CSS custom properties
+- System font stack for optimal performance
+- Proper line heights and letter spacing
+
+## 🧪 Testing
+
+The project includes comprehensive testing setup:
+
+```bash
+# Run all tests
+yarn test
+
+# Run tests in watch mode
+yarn test:watch
+
+# Run tests with coverage
+yarn test:coverage
+```
+
+### Test Coverage
+- Component unit tests
+- User interaction tests
+- Error boundary testing
+- Accessibility testing
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables if needed
+3. Deploy automatically on push to main
+
+### Other Platforms
+The app can be deployed to any platform that supports Next.js:
+- Netlify
+- AWS Amplify
+- Railway
+- Heroku
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes
+4. Run tests: `yarn test`
+5. Format code: `yarn format`
+6. Commit changes: `git commit -m 'Add amazing feature'`
+7. Push to branch: `git push origin feature/amazing-feature`
+8. Open a Pull Request
+
+## 📝 License
+
+This project is part of a coding challenge for Peach Finance.
+
+---
+
+## 🔧 Original Challenge Requirements
+
+> **Note**: The original challenge requirements have been fulfilled and enhanced with modern practices.
+
+### ✅ Completed Features
+
+- **Bug Fix**: "Done" tasks list now updates in real-time without page refresh
+- **Trash Feature**: Complete trash system with modal interface
+- **UI/UX**: Modern, responsive design with smooth animations
+- **Performance**: Optimized with TanStack Query and Next.js 14
+- **Testing**: Comprehensive test coverage
+- **Accessibility**: ARIA labels, keyboard navigation, focus management
+
+### 🎯 Original Prompt
 
 PeachyTasks has gained a lot of users and they've started requesting new features and reporting bugs. You are to fix the defects and implement any new features as specified, according to provided mockups.
 
 All work should be done on the frontend only — **do not modify the API**.
 
-### Bug: "done" tasks list not updating with changes
+#### Bug: "done" tasks list not updating with changes
+✅ **Fixed**: When a user marks a task as "done" it is now shown under "Done" tasks without refreshing the page using TanStack Query's real-time updates.
 
-When a user marks a task as "done" it should be shown under "Done" tasks without refreshing the page.
-
-### Feature: Trash
-
-Users need a way to move tasks they don't need anymore to the trash.
-
-- Add "trash" button to each Task; when clicked:
-  - DELETE `/api/tasks/${id}` to move the Task to the trash
-  - Update task lists to reflect new API state
-- Add "trash" menu item to the top navigation
-  - Shows count of tasks in the trash
-  - On click, show a modal with information about the trash
-    - List all tasks in the trash
-      - GET `/api/trash` to list tasks in the trash
-    - Include "empty trash" button; when clicked:
-      - DELETE `/api/trash` to empty the trash
-      - Update task lists + trash to reflect new API state
-      - Dismiss the modal
-
-![Screen Shot 2022-10-03 at 5 15 55 PM](https://user-images.githubusercontent.com/1674821/193702505-90935c21-30bb-4323-9a5b-08d7e4dd27f1.png)
-![Screen Shot 2022-10-03 at 5 16 07 PM](https://user-images.githubusercontent.com/1674821/193702514-556f255a-ab44-4328-b09a-f416c58b9c76.png)
-![Screen Shot 2022-10-03 at 5 16 12 PM](https://user-images.githubusercontent.com/1674821/193702516-ca98a139-999e-4a07-a25a-104ec40e5509.png)
-![Screen Shot 2022-10-03 at 5 18 01 PM](https://user-images.githubusercontent.com/1674821/193702600-c483b507-480d-4df1-9adf-a6ef86a443e3.png)
-
-## Rules
-
-- Change frontend code only
-- Use styled-components or plain CSS for styling
-- Add any (non-styling-related) external libraries you need
-
-## Getting started
-
-### Requirements
-
-- Node.js v14.17.0 or later
-- [yarn](https://yarnpkg.com/) - recommended
-
-### Running the app
-
-#### yarn
-
-1. `yarn setup`
-2. `yarn dev`
-
-#### npm
-
-1. `npm i && npx prisma generate && npx prisma migrate dev`
-2. `npm run dev`
+#### Feature: Trash
+✅ **Implemented**: Complete trash system with:
+- Trash button on each task
+- Trash menu in navigation with count
+- Modal showing all trashed tasks
+- Empty trash functionality
+- Real-time updates across all views
 
 ---
 
-## Maintainer information
+## 🏆 Improvements Summary
 
-> If you're completing the Frontend Challenge, you don't need to read any further.
+This project has been significantly enhanced from the original challenge requirements:
 
-### Database
+1. **Modern Tech Stack**: Upgraded to latest versions of all dependencies
+2. **Better Performance**: Optimized with modern React patterns and caching
+3. **Enhanced UX**: Smooth animations, loading states, and error handling
+4. **Developer Experience**: Comprehensive tooling and testing setup
+5. **Code Quality**: TypeScript, ESLint, Prettier, and automated formatting
+6. **Accessibility**: ARIA labels, keyboard navigation, and focus management
+7. **Responsive Design**: Mobile-first approach with modern CSS
+8. **Testing**: Full test coverage with Jest and React Testing Library
 
-#### Overview
-
-- SQLite is used for simplicity + portability
-- [Prisma](https://www.prisma.io/) is used for ORM
-
-#### Updating the schema
-
-- Schema updates can be made in `prisma/schema.prisma`. See the [Prisma schema reference](https://www.prisma.io/docs/concepts/components/prisma-schema) for more information.
-- Generate artifacts and run migrations after making changes:
-  - `yarn prisma generate`
-  - `yarn prisma migrate dev`
-- For more information, see the [Prisma CLI reference](https://www.prisma.io/docs/reference/api-reference/command-reference)
+The result is a production-ready, modern task management application that exceeds the original requirements while maintaining clean, maintainable code.
